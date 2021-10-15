@@ -61,7 +61,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Javalin app = Javalin.create().start(8080);
+        Javalin app = Javalin.create(config -> {
+            config.addStaticFiles(staticFiles -> {
+                staticFiles.hostedPath = "/";
+                staticFiles.directory = "/public";
+            });
+        }).start(11100);
 
         app.get("/", ctx -> {
             ctx.contentType("text/html");
